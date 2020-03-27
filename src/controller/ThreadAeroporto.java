@@ -4,77 +4,81 @@ import java.util.concurrent.Semaphore;
 
 public class ThreadAeroporto extends Thread {
 
-	// 0 = norte, 1 = sul
-	private int pista;
-	private Semaphore qtDecolar;
+	private Semaphore limite;
 	private int nAviao;
+	private String direcao;
 
-	public ThreadAeroporto(int pista, Semaphore qtDecolar, int nAviao) {
-		this.pista = pista;
-		this.qtDecolar = qtDecolar;
+	public ThreadAeroporto(int nAviao, Semaphore limite, String direcao) {
 		this.nAviao = nAviao;
+		this.direcao = direcao;
+		this.limite = limite;
 	}
 
 	@Override
 	public void run() {
-		decolar();
+		procedimentoDecolagem();
 	}
 
-	private void decolar() {
+	private void procedimentoDecolagem() {
 		try {
-			qtDecolar.acquire();
-			manobrar();
+			limite.acquire();
+			manobra();
 			taxiar();
-			decolagem();
+			decolar();
 			afastamento();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
-			qtDecolar.release();
-		}
-		String nomePista;
-		if (pista == 0) {
-			nomePista = "norte";
-		} else {
-			nomePista = "sul";
-		}
-		System.out.println("Avião " + nAviao + " decolou pela pista " + nomePista);
-	}
-
-	private void manobrar() {
-		int tpManobra = (int) ((Math.random() * 4001) + 3000);
-		try {
-			sleep(tpManobra);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void taxiar() {
-		int tpTaxiar = (int) ((Math.random() * 5001) + 5000);
-		try {
-			sleep(tpTaxiar);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void decolagem() {
-		int tpDecolagem = (int) ((Math.random() * 3001) + 1000);
-		try {
-			sleep(tpDecolagem);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			limite.release();
 		}
 	}
 
 	private void afastamento() {
-		int tpAfastamento = (int) ((Math.random() * 5001) + 3000);
+		// 1s = 1000ms
+		int s = (int) ((Math.random() * 5001) + 3000);
+		// dorme 3 a 8 segundos
 		try {
-			sleep(tpAfastamento);
+			sleep(s);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println("O avião " + nAviao + " se afastou após " + (s / 1000) + " segundos");
+	}
+
+	private void decolar() {
+		// 1s = 1000ms
+		int s = (int) ((Math.random() * 3001) + 1000);
+		// dorme 1 a 4 segundos
+		try {
+			sleep(s);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("O avião " + nAviao + " decolou após " + (s / 1000) + " segundos sentido " + direcao);
+	}
+
+	private void taxiar() {
+		// 1s = 1000ms
+		int s = (int) ((Math.random() * 5001) + 5000);
+		// dorme 5 a 10 segundos
+		try {
+			sleep(s);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("O avião " + nAviao + " taxiou " + (s / 1000) + " segundos");
+	}
+
+	private void manobra() {
+		// 1s = 1000ms
+		int s = (int) ((Math.random() * 4001) + 3000);
+		// dorme 3 a 7 segundos
+		try {
+			sleep(s);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("O avião " + nAviao + " manobrou após " + (s / 1000) + " segundos");
 	}
 
 }
