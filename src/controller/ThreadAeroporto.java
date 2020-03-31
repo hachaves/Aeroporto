@@ -42,7 +42,7 @@ public class ThreadAeroporto extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("O avião " + nAviao + " se afastou após " + (s / 1000) + " segundos");
+		System.out.println("numero " + nAviao + " afastou depois de " + (s / 1000) + " segundos");
 	}
 
 	private void decolar() {
@@ -54,7 +54,7 @@ public class ThreadAeroporto extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("O avião " + nAviao + " decolou após " + (s / 1000) + " segundos sentido " + direcao);
+		System.out.println("numero " + nAviao + " decolou depois de " + (s / 1000) + " segundos indo para " + direcao);
 	}
 
 	private void taxiar() {
@@ -66,7 +66,7 @@ public class ThreadAeroporto extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("O avião " + nAviao + " taxiou " + (s / 1000) + " segundos");
+		System.out.println("numero " + nAviao + " fez o taxiamento depois de " + (s / 1000) + " segundos");
 	}
 
 	private void manobra() {
@@ -78,7 +78,7 @@ public class ThreadAeroporto extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("O avião " + nAviao + " manobrou após " + (s / 1000) + " segundos");
+		System.out.println("numero " + nAviao + " manobrou em " + (s / 1000) + " segundos");
 	}
 
 }
